@@ -5,11 +5,10 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const token = process.env.TELEGRAM_API_KEY;
+const chatMessage = process.env.TELEGRAM_CHAT_ID;
 
 const openai = new OpenAI(OPENAI_API_KEY)
-
-const token = '6610292144:AAFboDwjLsB934n-PlHHsgqkni-TUdoSk4k';
-const chatMessage = 1132833383;
 
 let bot = new telegram(token, {polling: true})
 
@@ -17,8 +16,6 @@ bot.on('message', async msg => {
     const chatId = msg.chat.id;
     const messageText = msg.text;
 
-    console.log(chatId)
-    console.log(messageText)
     if(chatId == chatMessage){
 
         openai.complete({
@@ -29,7 +26,6 @@ bot.on('message', async msg => {
         })
        .then((res) => {
             const reply = res.data.choices[0].text;
-            console.log(res.data)
             bot.sendMessage(chatId,reply);
        })
        .catch((error) => {
