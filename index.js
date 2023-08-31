@@ -9,14 +9,14 @@ telegram_bot.on('message', async msg => {
 
     if(chatId == chatMessage){
 
-        openai.complete({
-            engine: "text-davinci-003",
+        openai.completions.create({
+            model: "text-davinci-003",
             prompt: messageText, 
             temperature: 1, 
             max_tokens: 4000 
         })
        .then((res) => {
-            const reply = res.data.choices[0].text;
+            const reply = res.choices[0].text;
             telegram_bot.sendMessage(chatId,reply);
        })
        .catch((error) => {
