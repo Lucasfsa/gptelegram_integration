@@ -1,18 +1,9 @@
-import telegram from 'node-telegram-bot-api';
-import OpenAI   from 'openai-api';
-import dotenv from 'dotenv'
+import { config_openAI, config_telegram, chatMessage } from './config.js';
 
-dotenv.config();
+const openai = config_openAI()
+const telegram_bot = config_telegram()
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const token = process.env.TELEGRAM_API_KEY;
-const chatMessage = process.env.TELEGRAM_CHAT_ID;
-
-const openai = new OpenAI(OPENAI_API_KEY)
-
-let bot = new telegram(token, {polling: true})
-
-bot.on('message', async msg => {
+telegram_bot.on('message', async msg => {
     const chatId = msg.chat.id;
     const messageText = msg.text;
 
@@ -26,10 +17,10 @@ bot.on('message', async msg => {
         })
        .then((res) => {
             const reply = res.data.choices[0].text;
-            bot.sendMessage(chatId,reply);
+            telegram_bot.sendMessage(chatId,reply);
        })
        .catch((error) => {
-            bot.sendMessage(chatId,`❌ OpenAI Response Error: ${error}`);
+        telegram_bot.sendMessage(chatId,`❌ OpenAI Response Error: ${error}`);
             console.log(error)
        });    
     }
