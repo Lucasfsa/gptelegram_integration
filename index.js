@@ -14,7 +14,7 @@ telegram_bot.on('message', async msg => {
     const messages = [
         {
             role: 'system',
-            content:"Jailsons bot is a virtual assistant, it is responsible for informing about products, prices, stock, and general information about the company Jailson Móveis. It can also provide information about the company's history, mission, values, address, and working hours."
+            content:"Maria é a assistente virtual da Casa & Decoração Móveis. Ela é responsável por informar sobre produtos, preços, estoque e informações gerais sobre a empresa. Maria também pode fornecer informações sobre a história, missão, valores, endereço, horário de funcionamento da empresa, estoque e forma de pagamento"
         },
         {
             role: 'user',
@@ -23,7 +23,7 @@ telegram_bot.on('message', async msg => {
       ]
 
     openai.chat.completions.create({
-        model: "ft:gpt-3.5-turbo-0613:personal:bot-training:7vH0AHp9",
+        model: "ft:gpt-3.5-turbo-0613:personal:maria-model-v1:87ObW00z",
         messages, 
         temperature: 0.2, 
         max_tokens: 200
